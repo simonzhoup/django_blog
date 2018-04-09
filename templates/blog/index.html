@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog</title>
+</head>
+<body>
+    <h1>WeBlog</h1>
+    <div>
+        Hello!<br />
+        <strong>{{ message }}</strong><br />
+    </div>
+    <div>
+        <a href="/blog/about/">About</a><br />
+        <img src="{% static "images/rango.jpeg" %}" alt="Picture of Range" />{{ adsad }}
+    </div>
+
+</body>
+</html>

@@ -7,6 +7,11 @@ import django
 django.setup()
 from blog.models import Category,Page
 
+<<<<<<< HEAD
+=======
+from random import randint
+
+>>>>>>> c1663ac45257d999b3801c42b0d452a80186211b
 def populate():
     python_pages = [
         {"title": "Official Python Tutorial",
@@ -44,7 +49,11 @@ def populate():
 def add_page(cat,title,url,views=0):
     p = Page.objects.get_or_create(category=cat,title=title)[0]
     p.url=url
+<<<<<<< HEAD
     p.views=views
+=======
+    p.views=randint(20,80)
+>>>>>>> c1663ac45257d999b3801c42b0d452a80186211b
     p.save()
     return p
 

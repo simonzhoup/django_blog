@@ -56,7 +56,7 @@ coverage.xml
 .static_storage/
 .media/
 local_settings.py
-# .idea/
+.idea
 
 # Flask stuff:
 instance/
@@ -106,9 +106,8 @@ venv.bak/
 .mypy_cache/
 
 #database
-<<<<<<< HEAD
 *.sqlite3
-=======
-*.sqlite3
->>>>>>> 752d84458c9d7ffdf61b663575bed2b24d594b61
 *.sqlite
+
+pupolute_blog.py
+*migrations/

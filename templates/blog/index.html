@@ -1,23 +1,46 @@
-<!doctype html>
-<html lang="en">
+{% extends 'blog/base.html' %}
 {% load staticfiles %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog</title>
-</head>
-<body>
+
+{% block title_block %}
+Index
+{% endblock %}
+
+{% block body_block %}
     <h1>WeBlog</h1>
     <div>
         Hello!<br />
-        <strong>{{ message }}</strong><br />
     </div>
     <div>
-        <a href="/blog/about/">About</a><br />
-        <img src="{% static "images/rango.jpeg" %}" alt="Picture of Range" />{{ adsad }}
+        <strong>Most Liked Categories:</strong>
+        {% if categories %}
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
     </div>
 
-</body>
-</html>
+    <div>
+        <strong>Most Viewed Pages:</strong>
+        {% if pages %}
+        <ul>
+            {% for page in pages %}
+                <li>
+                    <a href="{{ page.url }}">{{ page.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            There is no page.
+        {% endif %}
+    </div>
+
+    <div>
+        <img src="{% static "images/rango.jpeg" %}" alt="Picture of Range" />
+    </div>
+{% endblock %}

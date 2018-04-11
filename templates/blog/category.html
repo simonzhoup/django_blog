@@ -22,7 +22,9 @@
     {% endif %}
     <br />
     {% if category %}
-    <strong>Add Page</strong><br />
-    <a href="{% url 'blog:add_page' category=category.slug %}">Add a Page</a><br />
+        {% if user.is_authenticated %}
+        <strong>Add Page</strong><br />
+        <a href="{% url 'blog:add_page' category=category.slug %}">Add a Page</a><br />
+        {% endif %}
     {% endif %}
 {% endblock %}

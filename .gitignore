@@ -109,5 +109,6 @@ venv.bak/
 *.sqlite3
 *.sqlite
 
-pupolute_blog.py
+pupolate_blog.py
+media/
 *migrations/

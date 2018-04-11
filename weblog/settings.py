@@ -38,7 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'registration',
 ]
+
+# 设为 True,允许用户注册
+REGISTRATION_OPEN = True
+# 留一周的激活时间;当然,也可以设为其他值
+ACCOUNT_ACTIVATION_DAYS = 7
+# 设为 True,注册后自动登录
+REGISTRATION_AUTO_LOGIN = True
+# 登录后呈现给用户的页面
+LOGIN_REDIRECT_URL = '/blog/'
+# 未登录以及访问需要验证身份的页面时重定向的页面
+LOGIN_URL = '/accounts/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

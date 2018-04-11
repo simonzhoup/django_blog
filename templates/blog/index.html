@@ -8,7 +8,11 @@ Index
 {% block body_block %}
     <h1>WeBlog</h1>
     <div>
-        Hello!<br />
+        {% if user.is_authenticated %}
+        Hello {{ user.username }}
+        {% else %}
+        Hello!
+        {% endif %}
     </div>
     <div>
         <strong>Most Liked Categories:</strong>

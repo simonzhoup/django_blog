@@ -31,7 +31,13 @@
             <li><a href="{% url 'blog:add_category' %}">Add New Category</a></li>
             <li><a href="{% url 'blog:about' %}">About</a></li>
             <li><a href="{% url 'blog:index' %}">Index</a></li>
-            <li><a href="{% url 'blog:register' %}">Register</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'auth_logout' %}?next=/blog/">Logout</a> </li>
+            {% else %}
+            <li><a href="{% url 'auth_login' %}">Login</a> </li>
+            <li><a href="{% url 'registration_register' %}">Register</a></li>
+            {% endif %}
+            <p>visits:{{ visits }}</p>
         </ul>
     </div>
 </body>

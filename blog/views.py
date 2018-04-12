@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from .forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from .forms import CategoryForm, PageForm
 from .models import Category, Page
 
 
@@ -87,7 +87,8 @@ def add_category(request):
             return index(request)
         else:
             print(form.errors)
-    return render(request, 'blog/add_category.html', {'form': form})
+    context_dict = {'form':form,}
+    return render(request, 'blog/add_category.html',context=context_dict)
 
 @login_required
 def add_page(request, category):
@@ -104,3 +105,4 @@ def add_page(request, category):
         print(form.errors)
     context_dict = {'form': form, 'category': category}
     return render(request, 'blog/add_page.html', context_dict)
+

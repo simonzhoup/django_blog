@@ -112,3 +112,4 @@ venv.bak/
 pupolate_blog.py
 media/
 *migrations/
+*.key

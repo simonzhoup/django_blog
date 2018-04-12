@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'registration',
+    'bootstrap_toolkit',
 ]
 
 # 设为 True,允许用户注册

@@ -18,11 +18,13 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from registration.backends.simple.views import RegistrationView
-
+from registration.forms import RegistrationForm
+from django import forms
 
 class MyRegisterationView(RegistrationView):
     def get_success_url(self, user):
-        return '/blog/'
+        return '/blog/register/user_profile/'
+
 
 
 urlpatterns = [

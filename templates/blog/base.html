@@ -17,6 +17,24 @@
 
     <!-- Custom styles for this template -->
     <link href="http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('input#category-search').on('keyup', function(e) {
+          var searchQuery = $(this).val().toUpperCase();
+          $('li.category_link').each(function() {
+            var elem = $(this),
+                tableName = elem.find('a').prop('innerText').toUpperCase();
+            elem.toggle(tableName.indexOf(searchQuery) != -1);
+          });
+        });
+      });
+     </script>
   </head>
 
   <body>
@@ -24,7 +42,7 @@
       <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Blog</a>
+      <a class="navbar-brand" href="{% url 'blog:index' %}">Blog</a>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -36,6 +54,9 @@
             <a class="nav-link" href="{% url 'blog:add_category' %}">Add New Category</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:profile' %}">Profile</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'auth_logout' %}?next=/blog/">Logout</a>
           </li>
             {% else %}
@@ -45,11 +66,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'registration_register' %}">Register</a>
             </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'blog:about' %}">About</a>
             </li>
-            {% endif %}
-
         </ul>
       </div>
     </nav>
@@ -58,7 +78,18 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar pt-5">
             {% block sidebar_block %}
+                <input class="form-control input-sm" id="category-search" placeholder="filter category" type="text" />
                 {% get_category_list category %}
+                <div class="col-sm-8">
+                <h5>Search with BLog</h5>
+                <form class="form-inline" id="user_form" method="post" action="{% url 'blog:search' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-cotrol" type="text" size="50" name="query" value="{{ query }}" id="query" style="width: 40%;"/>
+                    </div>
+                    <button class="btn btn-primary btn-sm" type="submit" name="submit" value="Search">Search</button>
+                </form>
+                </div>
             {% endblock %}
         </div>
 
@@ -68,15 +99,5 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

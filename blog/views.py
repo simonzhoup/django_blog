@@ -8,8 +8,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
-from .forms import CategoryForm, PageForm
-from .models import Category, Page
+from blog.webhose_search import run_query
+from .forms import CategoryForm, PageForm, UserProfileForm
+from .models import Category, Page, UserProfile
 
 
 class IndexViews(generic.ListView):
@@ -106,3 +107,42 @@ def add_page(request, category):
     context_dict = {'form': form, 'category': category}
     return render(request, 'blog/add_page.html', context_dict)
 
+def search(request):
+    result_list=[]
+    query = ''
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            result_list = run_query(query)
+    return render(request,'blog/search.html',{'result_list':result_list,'query':query})
+
+def go_to(request,id):
+    page = Page.objects.get(id=id)
+    if page:
+        page.views += 1
+        page.save()
+    return HttpResponseRedirect(page.url)
+
+@login_required
+def user_profile(request):
+    form = UserProfileForm()
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return index(request)
+    return render(request,'blog/register_user_profile.html',{'form':form})
+
+@login_required
+def profile(request):
+    user = request.user
+    profile = UserProfile.objects.get(user=user)
+    profile_dict = {
+        'username':user,
+        'email':user.email,
+        'url':profile.website,
+        'picture':profile.picture
+    }
+    return render(request, 'blog/profile.html', profile_dict)
